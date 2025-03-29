@@ -1,0 +1,57 @@
+/* ShipmentBooking.css */
+.shipment-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .shipment-container h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .shipment-container form label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+  }
+  
+  .shipment-container form input,
+  .shipment-container form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .shipment-container form button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .shipment-container form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.9em;
+  }
+  
+  .message {
+    color: green;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
