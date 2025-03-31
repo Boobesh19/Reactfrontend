@@ -23,7 +23,7 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
+    <div className="ST-container">
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div className="form-group">
