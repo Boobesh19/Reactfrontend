@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -11,27 +10,41 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
-// MongoDB connection
-const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/";
-
-mongoose.connect(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-mongoose.connection.on("connected", () => {
-  console.log("Connected to MongoDB");
-});
-
-mongoose.connection.on("error", (err) => {
-  console.error("MongoDB connection error:", err);
-});
+// In-memory storage for shipments (this will reset when server restarts)
+let shipments = [];
 
 // Sample route
 app.get("/", (req, res) => {
-  res.send("Server is running...");
+  res.send("🚀 Server is running without a database...");
+});
+
+// Route to get all shipments
+app.get("/api/shipments", (req, res) => {
+  res.json(shipments);
+});
+
+// Route to create a new shipment
+app.post("/api/shipments", (req, res) => {
+  const { senderName, receiverName, email, phone, address, packageDetails } = req.body;
+
+  if (!senderName || !receiverName || !email || !phone || !address || !packageDetails) {
+    return res.status(400).json({ error: "All fields are required!" });
+  }
+
+  const newShipment = { id: Date.now(), senderName, receiverName, email, phone, address, packageDetails };
+  shipments.push(newShipment);
+
+  res.status(201).json(newShipment);
+});
+
+// Route to delete a shipment
+app.delete("/api/shipments/:id", (req, res) => {
+  const shipmentId = parseInt(req.params.id);
+  shipments = shipments.filter((shipment) => shipment.id !== shipmentId);
+
+  res.json({ message: "Shipment deleted successfully" });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
