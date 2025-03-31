@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -14,10 +13,17 @@ const Login = () => {
     e.preventDefault();
     if (credentials.username && credentials.password) {
       sessionStorage.setItem("isLoggedIn", "true");
+      sessionStorage.setItem("username", credentials.username); // Store username for verification
+      
+      console.log("Login Successful!");
+      console.log("User:", credentials.username);
+      console.log("isLoggedIn:", sessionStorage.getItem("isLoggedIn"));
+
       alert("Login Successful!");
       navigate("/");
       window.location.reload();
     } else {
+      console.log("Login failed: Invalid credentials");
       alert("Please enter valid credentials.");
     }
   };

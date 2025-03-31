@@ -16,7 +16,7 @@ const shipmentSchema = z.object({
 
 function ShipmentBooking() {
   const [submissionMessage, setSubmissionMessage] = useState("");
-  
+
   const {
     register,
     handleSubmit,
@@ -27,22 +27,32 @@ function ShipmentBooking() {
   });
 
   const onSubmit = async (data) => {
+    console.log("Form submitted!");  // Log when the form is submitted
+    console.log("Form Data:", data);  // Log the form data before conversion
+
     try {
       // Convert the data to JSON format
       const jsonData = JSON.stringify(data, null, 2);
+      console.log("Converted JSON Data:", jsonData); // Log converted JSON
 
       // Send data to backend (or save to local JSON file for now)
-      await fetch("/api/saveShipment", {
+      const response = await fetch("/api/saveShipment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: jsonData,
       });
 
-      setSubmissionMessage("Shipment booking successful! Data saved.");
-      reset();
+      if (response.ok) {
+        console.log("Data successfully sent to backend."); // Log success
+        setSubmissionMessage("Shipment booking successful! Data saved.");
+        reset();
+      } else {
+        console.log("Failed to save shipment data."); // Log failure
+        setSubmissionMessage("Error saving shipment data.");
+      }
     } catch (error) {
-      setSubmissionMessage("Error saving shipment data.");
       console.error("Error:", error);
+      setSubmissionMessage("Error saving shipment data.");
     }
   };
 
