@@ -3,7 +3,6 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* Prevents horizontal scrolling */
   font-family: 'Arial', sans-serif;
 }
 
@@ -60,6 +59,7 @@ body, html {
 /* Navbar - Full Width */
 nav {
   display: flex;
+  position: sticky;
   justify-content: space-between;
   align-items: center;
   background-color: #007bff;

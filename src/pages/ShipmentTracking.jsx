@@ -25,7 +25,7 @@ const ShipmentTracking = () => {
   };
 
   return (
-    <div className="container">
+    <div className="ST-container" >
       <form onSubmit={handleSubmit}>
         <label htmlFor="tracking-number"><b>Tracking Number:</b></label>
         <input
@@ -55,9 +55,7 @@ const ShipmentTracking = () => {
         <p><b>✉️ Email:</b> osakapvtltd@gmail.com</p>
         <p><b>📞 Phone:</b> 7708799000, 7708796000</p>
       </section>
-
-      <img src="/src/assets/images/red-circle-logo.jpg" alt="Osaka Private Limited Logo" width="200" height="200" style={{ display: "block", margin: "auto" }}/>
-    </div>
+</div>
   );
 };
 

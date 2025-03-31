@@ -9,6 +9,10 @@ const Navbar = () => {
     setIsLoggedIn(loggedInStatus === "true");
   }, []);
 
+  const navbarstyle = {
+    position: "sticky",
+  };
+
   const handleLogout = () => {
     sessionStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
@@ -16,7 +20,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
+    <nav style={navbarstyle} >
       <Link to="/">Home</Link>
       <Link to="/about">About Us</Link>
       <Link to="/booking">Shipment Booking</Link>
