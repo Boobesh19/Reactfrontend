@@ -21,9 +21,9 @@ const Contact = () => {
 
   return (
     <div className="container">
-      <h1>Contact Us</h1>
-      <div className="contact-form">
+      <div className="ST-container">
         <form onSubmit={handleSubmit}>
+          <h1>Contact</h1>
           <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required />
           <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required />
           <input type="text" name="subject" placeholder="Subject" value={formData.subject} onChange={handleChange} required />

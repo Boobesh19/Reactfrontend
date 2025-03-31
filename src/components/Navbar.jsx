@@ -9,13 +9,6 @@ const Navbar = () => {
     setIsLoggedIn(loggedInStatus === "true");
   }, []);
 
-// In Navbar.jsx, replace the current navbarstyle with:
-  const navbarstyle = {
-    position: "sticky",
-    top: "0",
-    zIndex: "1000"
-  };
-
   const handleLogout = () => {
     sessionStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
@@ -23,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav style={navbarstyle} >
+    <nav className="sticky-nav" >
       <Link to="/">Home</Link>
       <Link to="/about">About Us</Link>
       <Link to="/booking">Shipment Booking</Link>

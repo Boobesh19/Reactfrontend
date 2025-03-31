@@ -3,7 +3,6 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden;
   font-family: 'Arial', sans-serif;
 }
 
@@ -45,29 +44,20 @@ body, html {
   margin: 20px auto;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .text-box {
-    max-width: 90%;
-    padding: 15px;
-  }
-}
-
-
-/* Navbar - Full Width */
-nav {
-  display: flex;
-  top: 0;
+/* Make navbar sticky */
+.sticky-nav {
+  position: sticky;
+  top: 1px;
   z-index: 1000;
-  justify-content: space-between;
-  align-items: center;
+  width: 100vw;
   background-color: #007bff;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   padding: 15px;
   width: 100vw; /* Ensures it spans the full viewport width */
-  min-height: 60px; /* Prevents shrinking */
   box-sizing: border-box; /* Ensures padding doesn’t reduce width */
 }
-
 
 nav a {
   color: white;
@@ -76,6 +66,16 @@ nav a {
   font-weight: bold;
   margin: 0 15px;
   transition: 0.3s;
+}
+
+/* Add space below navbar */
+main {
+  padding-top: 20px; /* Adjust based on navbar height */
+}
+
+/* Remove default body margin */
+body {
+  margin: 0;
 }
 
 nav a:hover {
@@ -144,7 +144,8 @@ form button:hover {
 }
 
 .ST-container {
-  padding-top: 50px; /* Adjust based on navbar height */
+  min-height: calc(100vh - 120px);
+  display: flex;
   align-items: center;
-  align-content: center;
+  justify-content: center;
 }

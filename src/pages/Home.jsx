@@ -2,19 +2,19 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div className="home-container">
+    <section className="home-container">
       {/* Hero Section */}
-      <section className="hero-section">
+      <div className="hero-section">
         <h1>Welcome to Osaka Private Limited</h1>
         <p>
           We provide top-notch logistics and shipping services, specializing in Japan. 
           Our mission is to ensure seamless trading and shipping operations, getting your 
           goods to their destination efficiently and securely.
         </p>
-      </section>
+      </div>
 
       {/* Services Section */}
-      <section className="service-section">
+      <div className="service-section">
         <h2>Comprehensive Logistics Services for Business Growth</h2>
         <p>
           Combining cutting-edge logistics technology with high-quality service, we provide 
@@ -22,10 +22,10 @@ const Home = () => {
         </p>
         <p>🚚 Transportation Services</p>
         <p> 📦 Supply Chain Management</p>
-      </section>
+      </div>
 
       {/* Why Choose Us Section */}
-      <section className="why-us-section">
+      <div className="why-us-section">
         <h2>Why Choose Osaka Private Limited?</h2>
         <ul>
           <p>
@@ -41,7 +41,7 @@ const Home = () => {
             <p>We use real-time tracking and efficient management tools.</p>
           </p>
         </ul>
-      </section>
+      </div>
 
       {/* Contact Section */}
       <section className="contact-section">
@@ -50,7 +50,7 @@ const Home = () => {
         <p><b>✉️ Email:</b> osakapvtltd@gmail.com</p>
         <p><b>📞 Phone:</b> 7708799000, 7708796000</p>
       </section>
-    </div>
+    </section>
   );
 };
 

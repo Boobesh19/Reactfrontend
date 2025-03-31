@@ -27,11 +27,12 @@ const ShipmentTracking = () => {
   return (
     <div className="ST-container" >
       <form onSubmit={handleSubmit}>
-        <label htmlFor="tracking-number"><b>Tracking Number:</b></label>
+        <label htmlFor="tracking-number"><h1>Tracking Number:</h1></label>
         <input
           type="text"
           id="tracking-number"
           name="trackingNumber"
+          placeholder="Enter your Tracking number "
           value={trackingNumber}
           onChange={handleChange}
           required
@@ -48,13 +49,6 @@ const ShipmentTracking = () => {
         </div>
       )}
 
-      {/* Contact Section */}
-      <section>
-        <h2>📞 Contact Us</h2>
-        <p><b>📍 Address:</b> B1, Industrial Estate, Velachery, Chennai, Tamil Nadu.</p>
-        <p><b>✉️ Email:</b> osakapvtltd@gmail.com</p>
-        <p><b>📞 Phone:</b> 7708799000, 7708796000</p>
-      </section>
 </div>
   );
 };

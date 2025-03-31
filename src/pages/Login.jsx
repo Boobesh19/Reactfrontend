@@ -29,10 +29,10 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div  className="ST-container">
       <form onSubmit={handleLogin}>
         <div className="form-group">
+          <h1>Login</h1>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
