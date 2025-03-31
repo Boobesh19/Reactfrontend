@@ -57,7 +57,6 @@ body, html {
 /* Navbar - Full Width */
 nav {
   display: flex;
-  position: sticky;
   top: 0;
   z-index: 1000;
   justify-content: space-between;
@@ -68,6 +67,7 @@ nav {
   min-height: 60px; /* Prevents shrinking */
   box-sizing: border-box; /* Ensures padding doesn’t reduce width */
 }
+
 
 nav a {
   color: white;
@@ -144,7 +144,7 @@ form button:hover {
 }
 
 .ST-container {
-  padding-top: 130px; /* Adjust based on navbar height */
+  padding-top: 50px; /* Adjust based on navbar height */
   align-items: center;
   align-content: center;
 }

@@ -13,14 +13,16 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Routes>
-      <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/booking" element={<ShipmentBooking />} />
-        <Route path="/tracking" element={<ShipmentTracking />} />
-      </Routes>
+      <main style={{ minHeight: "calc(100vh - 120px)" }}> {/* Adjust based on your navbar/footer height */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/booking" element={<ShipmentBooking />} />
+          <Route path="/tracking" element={<ShipmentTracking />} />
+        </Routes>
+      </main>
       <Footer />
     </Router>
   );
