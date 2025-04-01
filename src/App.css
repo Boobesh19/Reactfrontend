@@ -2,7 +2,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 100vw;
   font-family: 'Arial', sans-serif;
 }
 
@@ -47,7 +47,7 @@ body, html {
 /* Make navbar sticky */
 .sticky-nav {
   position: sticky;
-  top: 1px;
+  top: 0;
   z-index: 1000;
   width: 100vw;
   background-color: #007bff;
@@ -66,11 +66,6 @@ nav a {
   font-weight: bold;
   margin: 0 15px;
   transition: 0.3s;
-}
-
-/* Add space below navbar */
-main {
-  padding-top: 20px; /* Adjust based on navbar height */
 }
 
 /* Remove default body margin */
@@ -148,4 +143,50 @@ form button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  .shipment-container {
+    padding: 15px;
+    width: 100%;
+  }
+
+  form {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  input, textarea {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .sticky-nav {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+    font-size: 16px;
+  }
+
+  .text-box {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .home-container, .about-container {
+    min-height: auto;
+  }
+
+  /* Make buttons more touch-friendly */
+  button {
+    font-size: 16px;
+    padding: 12px;
+  }
 }
