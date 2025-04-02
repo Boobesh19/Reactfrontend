@@ -8,8 +8,8 @@ import "./SBooking.css";
 const shipmentSchema = z.object({
   senderName: z.string().min(2, "Sender's name must be at least 2 characters"),
   receiverName: z.string().min(2, "Receiver's name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
+  email: z.string().email().nonempty("Invalid email address"),
+  phone: z.string().min(10, "Phone number must be at least 10 digits").max(12,"Phone number must be at max 12 digits"),
   address: z.string().min(5, "Address must be at least 5 characters"),
   packageDetails: z.string().min(5, "Please provide package details"),
 });
