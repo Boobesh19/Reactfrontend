@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,7 +8,7 @@ import "./SBooking.css";
 const shipmentSchema = z.object({
   senderName: z.string().min(2, "Sender's name must be at least 2 characters"),
   receiverName: z.string().min(2, "Receiver's name must be at least 2 characters"),
-  email: z.string().email().nonempty("Invalid email address"),
+  email: z.string().email("Invalid email address"),
   phone: z.string().min(10, "Phone must be at least 10 digits").max(12, "Max 12 digits"),
   address: z.string().min(5, "Address must be at least 5 characters"),
   packageDetails: z.string().min(5, "Please provide package details"),
@@ -16,8 +16,9 @@ const shipmentSchema = z.object({
 
 function ShipmentBooking() {
   const [shipments, setShipments] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
+  const [editId, setEditId] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -27,35 +28,72 @@ function ShipmentBooking() {
     setValue,
   } = useForm({ resolver: zodResolver(shipmentSchema) });
 
-  const onSubmit = (data) => {
-    if (editIndex !== null) {
-      const updated = [...shipments];
-      updated[editIndex] = data;
-      setShipments(updated);
-      setEditIndex(null);
-    } else {
-      setShipments([...shipments, data]);
+  const fetchShipments = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("http://localhost:5000/api/shipments");
+      const data = await response.json();
+      setShipments(data);
+    } catch (error) {
+      console.error("❌ Failed to fetch shipments", error);
+    } finally {
+      setLoading(false);
     }
-    reset();
-    setShowForm(false);
   };
 
-  const handleEdit = (index) => {
-    const shipment = shipments[index];
-    Object.keys(shipment).forEach((key) => setValue(key, shipment[key]));
-    setEditIndex(index);
+  useEffect(() => {
+    fetchShipments();
+  }, []);
+
+  const onSubmit = async (data) => {
+    try {
+      const method = editId ? "PUT" : "POST";
+      const url = editId
+        ? `http://localhost:5000/api/shipments/${editId}`
+        : "http://localhost:5000/api/shipments";
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error("Failed to submit");
+
+      await fetchShipments();
+      reset();
+      setEditId(null);
+      setShowForm(false);
+    } catch (err) {
+      console.error("❌ Error submitting shipment:", err);
+    }
+  };
+
+  const handleEdit = (shipment) => {
+    for (const [key, value] of Object.entries(shipment)) {
+      if (key in shipmentSchema.shape) {
+        setValue(key, value);
+      }
+    }
+    setEditId(shipment._id);
     setShowForm(true);
   };
 
-  const handleDelete = (index) => {
-    if (window.confirm("Are you sure you want to delete this shipment?")) {
-      setShipments(shipments.filter((_, i) => i !== index));
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this shipment?")) return;
+    try {
+      await fetch(`http://localhost:5000/api/shipments/${id}`, {
+        method: "DELETE",
+      });
+      await fetchShipments();
+    } catch (err) {
+      console.error("❌ Error deleting shipment:", err);
     }
   };
 
   const openNewForm = () => {
     reset();
-    setEditIndex(null);
+    setEditId(null);
     setShowForm(true);
   };
 
@@ -66,34 +104,37 @@ function ShipmentBooking() {
         <PlusCircle size={18} /> Book New Shipment
       </button>
 
-      <ul className="shipment-list">
-        {shipments.map((shipment, index) => (
-          <li key={index} className="shipment-item">
-            <div className="shipment-info">
-              <strong>Sender:</strong> {shipment.senderName}<br />
-              <strong>Receiver:</strong> {shipment.receiverName}<br />
-              <strong>Email:</strong> {shipment.email}<br />
-              <strong>Phone:</strong> {shipment.phone}<br />
-              <strong>Address:</strong> {shipment.address}<br />
-              <strong>Package:</strong> {shipment.packageDetails}<br />
-            </div>
-            <div className="shipment-actions">
-              <button onClick={() => handleEdit(index)} className="edit-btn">
-                <Edit size={18} />
-              </button>
-              <button onClick={() => handleDelete(index)} className="delete-btn">
-                <Trash2 size={18} />
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {loading ? (
+        <p>Loading shipments...</p>
+      ) : (
+        <ul className="shipment-list">
+          {shipments.map((shipment) => (
+            <li key={shipment._id} className="shipment-item">
+              <div className="shipment-info">
+                <strong>Sender:</strong> {shipment.senderName}<br />
+                <strong>Receiver:</strong> {shipment.receiverName}<br />
+                <strong>Email:</strong> {shipment.email}<br />
+                <strong>Phone:</strong> {shipment.phone}<br />
+                <strong>Address:</strong> {shipment.address}<br />
+                <strong>Package:</strong> {shipment.packageDetails}<br />
+              </div>
+              <div className="shipment-actions">
+                <button onClick={() => handleEdit(shipment)} className="edit-btn">
+                  <Edit size={18} />
+                </button>
+                <button onClick={() => handleDelete(shipment._id)} className="delete-btn">
+                  <Trash2 size={18} />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
 
-      {/* Popup Modal for Booking Form */}
       {showForm && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>{editIndex !== null ? "Edit Shipment" : "New Shipment"}</h3>
+            <h3>{editId ? "Edit Shipment" : "New Shipment"}</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
               <label>Sender's Name</label>
               <input {...register("senderName")} placeholder="John Doe" />
@@ -120,7 +161,7 @@ function ShipmentBooking() {
               {errors.packageDetails && <p className="error">{errors.packageDetails.message}</p>}
 
               <div className="form-actions">
-                <button type="submit">{editIndex !== null ? "Update Shipment" : "Book Shipment"}</button>
+                <button type="submit">{editId ? "Update Shipment" : "Book Shipment"}</button>
                 <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
               </div>
             </form>

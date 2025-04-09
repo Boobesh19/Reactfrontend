@@ -30,15 +30,15 @@ const Home = () => {
         <ul>
           <p>
             <b>📌 Reliable Logistics Solutions</b>
-            <p>We ensure safe and timely transport of goods with efficiency.</p>
+            <span>We ensure safe and timely transport of goods with efficiency.</span>
           </p>
           <p>
             <b>🌍 Global Shipping Expertise</b>
-            <p>Years of experience in international trade logistics.</p>
+            <span>Years of experience in international trade logistics.</span>
           </p>
           <p>
             <b>🚀 Innovative Technology</b>
-            <p>We use real-time tracking and efficient management tools.</p>
+            <span>We use real-time tracking and efficient management tools.</span>
           </p>
         </ul>
       </div>
