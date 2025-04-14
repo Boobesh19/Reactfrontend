@@ -31,7 +31,7 @@ function ShipmentBooking() {
   const fetchShipments = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/shipments");
+      const response = await fetch("https://reactbackend-fj7o.onrender.com/api/shipments");
       const data = await response.json();
       setShipments(data);
     } catch (error) {
@@ -49,8 +49,8 @@ function ShipmentBooking() {
     try {
       const method = editId ? "PUT" : "POST";
       const url = editId
-        ? `http://localhost:5000/api/shipments/${editId}`
-        : "http://localhost:5000/api/shipments";
+        ? `https://reactbackend-fj7o.onrender.com/api/shipments/${editId}`
+        : "https://reactbackend-fj7o.onrender.com/api/shipments";
 
       const response = await fetch(url, {
         method,
@@ -82,7 +82,7 @@ function ShipmentBooking() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this shipment?")) return;
     try {
-      await fetch(`http://localhost:5000/api/shipments/${id}`, {
+      await fetch(`https://reactbackend-fj7o.onrender.com/api/shipments/${id}`, {
         method: "DELETE",
       });
       await fetchShipments();
